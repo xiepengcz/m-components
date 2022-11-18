@@ -6,7 +6,7 @@
       </el-icon>
       <template #title>首页</template>
     </el-menu-item>
-    <el-menu-item index="2">
+    <el-menu-item index="2" path="/chooseIcon">
       <el-icon>
         <el-icon-location />
       </el-icon>
