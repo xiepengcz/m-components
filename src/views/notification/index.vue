@@ -13,6 +13,10 @@
     </m-notification>
   </div>
   <div>
+    <m-notification :disabled="true" :value="50" :max="30" :isDot="true" icon="chatRound">
+    </m-notification>
+  </div>
+  <div>
     <m-notification :value="50" :max="30" :isDot="true" icon="chatRound">
       <template #default>
         <m-list

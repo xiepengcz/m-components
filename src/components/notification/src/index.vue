@@ -1,5 +1,5 @@
 <template>
-  <el-popover placement="bottom" :width="300" trigger="click" class="popover">
+  <el-popover :disabled="disabled" placement="bottom" :width="300" trigger="click" class="popover">
     <template #default>
       <slot></slot>
     </template>
@@ -24,6 +24,7 @@ let props = defineProps({
   max: { type: Number, default: 99 }, // 最大值
   isDot: { type: Boolean, default: false }, // 是否显示小圆点
   hidden: { type: Boolean, default: false }, // 是否隐藏 Badge
+  disabled: { type: Boolean, default: false }, // 是否隐藏 Badge
 });
 </script>
 <style lang="scss">
