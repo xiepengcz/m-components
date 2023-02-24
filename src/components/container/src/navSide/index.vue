@@ -1,35 +1,24 @@
 <template>
-  <el-menu :collapse="props.collapse" class="el-menu-vertical-demo" default-active="2">
-    <el-menu-item index="1">
-      <el-icon>
-        <el-icon-location />
-      </el-icon>
-      <template #title>首页</template>
-    </el-menu-item>
-    <el-menu-item index="2" path="/chooseIcon">
-      <el-icon>
-        <el-icon-location />
-      </el-icon>
-      <template #title>图标</template>
-    </el-menu-item>
-    <el-menu-item index="3">
-      <el-icon>
-        <el-icon-location />
-      </el-icon>
-      <template #title>趋势</template>
-    </el-menu-item>
-  </el-menu>
+  <m-menu :data="data" router :defaultActive="$route.path"></m-menu>
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  collapse: boolean
-}>()
+const data = [
+  {icon: 'HomeFilled',name: '首页', index: '/'},
+  {icon: 'Check',name: '图标选择器', index: '/chooseIcon'},
+  {icon: 'Location',name: '省市区选择', index: '/chooseArea'},
+  {icon: 'DCaret',name: '趋势标记', index: '/trend'},
+  {icon: 'Timer',name: '时间选择器', index: '/chooseTime'},
+  {icon: 'Bell',name: '通知菜单', index: '/notification'},
+  {icon: 'Menu',name: '导航菜单', index: '/menu'},
+  {icon: 'OfficeBuilding',name: '城市选择器', index: '/chooseCity'},
+  {icon: 'Discount',name: '进度条', index: '/progress'},
+  {icon: 'Calendar',name: '日历', index: '/calendar'},
+  {icon: 'Tickets',name: '表单', index: '/form'},
+  {icon: 'Document',name: '表格', index: '/table'},
+  ]
 </script>
 
 <style lang="scss">
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
-}
+
 </style>

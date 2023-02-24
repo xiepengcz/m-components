@@ -16,7 +16,6 @@
   </el-dialog>
 </template>
 <script setup lang="ts">
-import { watch } from 'vue';
 import * as ElIcons from '@element-plus/icons-vue'
 import { toLine } from '../../../utils';
 import {useCopy} from '../../../hooks/useCopy/index'
@@ -36,10 +35,6 @@ const copyIcon = (item:string) => {
   useCopy(`<el-icon-${toLine(item)} />`)
   emits('update:visible', false)
 }
-// watch(()=> props.visible,val=>{
-//   console.log('val',val);
-//   emits('update:visible',val)
-// })
 </script>
 <style lang="scss">
 .container {
