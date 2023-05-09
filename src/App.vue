@@ -16,8 +16,4 @@ body,
 .el-menu {
   height: 100%;
 }
-svg {
-  width: 1em;
-  height: 1em;
-}
 </style>

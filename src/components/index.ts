@@ -6,8 +6,10 @@ import notification from "./notification";
 import list from "./list";
 import menu from "./menu";
 import form from "./form";
+import progress from "./progress";
+import chooseTime from "./chooseTime";
 
-const components = [chooseArea, chooseIcon, trend, notification, list, menu, form];
+const components = [chooseArea, chooseIcon, trend, notification, list, menu, form, progress,chooseTime];
 
 // 这里用于全局引用
 export default {

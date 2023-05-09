@@ -16,12 +16,17 @@ let toggle = () => {
   emits('update:collapse', !props.collapse)
 }
 </script>
-<style lang="scss">
-  .header{
-    height: 60px;
-    padding-left: 30px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-  }
+<style lang="scss" scoped>
+.header {
+  height: 60px;
+  padding-left: 30px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+svg {
+  width: 1em;
+  height: 1em;
+}
 </style>

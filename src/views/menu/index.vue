@@ -57,4 +57,5 @@ let data2 = [
 </script>
 
 <style lang="scss" scoped>
+
 </style>
