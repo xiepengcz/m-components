@@ -1,27 +1,30 @@
-// 列表每一项
-export interface ListItem {
-  // 头像
-  avatar?: string;
-  // 标题
-  title?: string;
-  // 描述
-  desc?: string;
-  // 时间
-  time?: string;
-  // 标签内容
-  tag?: string;
-  tagType?: '' | 'success' | 'info' | 'warning' | 'danger'
-}
-
-
-// 列表
-export interface ListOptions {
-  title: string;
-  content: ListItem[]
-}
-
-// 操作选项
-export interface ActionOptions {
-  text: string;
-  icon?: string;
+// 可配置表单
+// 表单每一项的配置项
+export interface FormOptions {
+  // 表单显示的元素
+  type:
+    | "autocomplete"
+    | "cascader"
+    | "checkbox"
+    | "checkbox-group"
+    | "color-picker"
+    | "date-picker"
+    | "input"
+    | "input-number"
+    | "radio"
+    | "radio-group"
+    | "rate"
+    | "select"
+    | "option"
+    | "select-v2"
+    | "slider"
+    | "switch"
+    | "time-picker"
+    | "time-select"
+    | "transfer"
+    | "upload";
+  value: any; // 表单项的值
+  label?: string; // 表单label
+  prop?: string ; // 表单标识
+  rules?:string;
 }
