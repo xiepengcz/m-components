@@ -1,23 +1,20 @@
 <template>
-  <div>
-    form
-  </div>
+  <el-form v-bin="$attrs" :model="" :rules="rules">
+    <el-form-item :label="item.label" v-for="(item, index) in options" :key="index">
+      <component :is="`el-${item.type}`" v-bind="item.attrs" ></component>
+    </el-form-item>
+  </el-form>
 </template>
 <script lang="ts" setup>
 import { PropType } from "vue";
-import { ActionOptions, ListOptions, ListItem } from "./types";
-import { toLine } from "../../../utils";
+import { FormOptions } from "./types/types";
 const props = defineProps({
-  // 列表内容
-  list: {
-    type: Array as PropType<ListOptions[]>,
+  // 表单的配置项
+  options: {
+    type: Array as PropType<FormOptions[]>,
     required: true,
   },
   // 操作内容
-  actions: {
-    type: Array as PropType<ActionOptions[]>,
-    default: () => [],
-  },
 });
 
 // 可以配置型表单，通过json对象的方式自动生成表单，
