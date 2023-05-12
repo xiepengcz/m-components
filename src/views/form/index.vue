@@ -1,6 +1,8 @@
 <template>
   <div>
-    <m-form label-width="100px" size="small" :options="options">
+    <m-form label-width="100px" size="small" :options="options" @onPreview="handlePreview" @onRemove="handleRemove"
+      @onSuccess="handleSuccess" @onError="handleError" @onProgress="handleProgress" @onChange="handleChange" @onExceed="handleExceed"
+      @beforeUpload="handleBeforeUpload" @beforeRemove="handleBeforeRemove">
       <template #uploadArea>
         <el-button type="primary">Click to upload</el-button>
       </template>
@@ -16,6 +18,7 @@
 import { ref } from 'vue';
 import { FormOptions } from '../../components/form/src/types/types';
 import { RuleItem } from '../../components/form/src/types/rule';
+import { UploadFile, UploadFiles, UploadProgressEvent, UploadRawFile, UploadUserFile } from 'element-plus';
 
 let options: FormOptions[] = [
   {
@@ -113,6 +116,36 @@ let options: FormOptions[] = [
   },
 
 ]
+
+const handlePreview = (uploadFile: UploadFile) => {
+console.log('handlePreview');
+}
+const handleRemove = (val:any) => {
+  
+  console.log('handleRemove');
+}
+const handleSuccess = (val:any) => {
+
+}
+const handleError = (val:any) => {
+
+}
+const handleProgress =(val:any) => {
+
+}
+const handleChange = (val:any)=> {
+
+}
+const handleExceed = (val:any) => {
+
+}
+const handleBeforeUpload = (val:any) => {
+console.log('handleBeforeUpload');
+}
+const handleBeforeRemove = (val:any) => {
+
+}
+
 
 </script>
 <style lang="scss"></style>
