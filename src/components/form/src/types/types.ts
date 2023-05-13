@@ -44,8 +44,7 @@ export interface FormOptions {
   children?: FormOptions[];
   // 处理上传组件的属性和方法
   uploadAttrs?: {
-    actions: string;
-    action?: string;
+    action: string;
     headers?: object;
     method?: "post" | "put";
     multiple?: boolean;

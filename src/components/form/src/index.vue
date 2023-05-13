@@ -1,11 +1,11 @@
 <template>
-  <el-form v-if="model" v-bind="$attrs" :validate-on-rule-change="false" :model="model" :rules="rules">
+  <el-form ref="formRef" v-if="model" v-bind="$attrs" :validate-on-rule-change="false" :model="model" :rules="rules">
     <template v-for="(item, index) in options" :key="index">
       <!-- 单组件 -->
       <el-form-item v-if="!item.children || !item.children.length" :prop="item.prop" :label="item.label">
         <component v-if="item.type !== 'upload'" :is="`el-${item.type}`" v-model="model[item.prop!]" v-bind="item.attrs">
         </component>
-        <el-upload v-else v-bind="item.attrs" :on-preview="onPreview" :on-remove="onRemove" :on-success="onSuccess"
+        <el-upload v-else v-bind="item.uploadAttrs" :on-preview="onPreview" :on-remove="onRemove" :on-success="onSuccess"
           :on-error="onError" :on-progress="onProgress" :on-change="onChange" :on-exceed="onExceed"
           :before-upload="beforeUpload" :before-remove="beforeRemove">
           <slot name="uploadArea"></slot>
@@ -20,17 +20,21 @@
           </component>
         </component>
       </el-form-item>
-
     </template>
-
+    <el-form-item>
+      <slot name="action" :form="formRef" :model="model"></slot>
+    </el-form-item>
   </el-form>
 </template>
 <script lang="ts" setup>
 import { PropType, onMounted, ref, watch } from "vue";
 import { FormOptions } from "./types/types";
 import cloneDeep from 'lodash/cloneDeep'
-import { UploadFile, UploadFiles, UploadProgressEvent, UploadProps, UploadRawFile, UploadRequestOptions, UploadUserFile } from "element-plus";
+import { ElForm, UploadFile, UploadFiles, UploadProgressEvent, UploadProps, UploadRawFile, UploadRequestOptions, UploadUserFile } from "element-plus";
 import { Awaitable } from "element-plus/es/utils";
+
+type FormInstance = InstanceType<typeof ElForm>
+const formRef = ref<FormInstance>()
 const props = defineProps({
   // 表单的配置项
   options: {
@@ -74,14 +78,17 @@ const onRemove = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
   emits('onRemove', { uploadFile, uploadFiles })
 }
 const onSuccess = (response: any, uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  emits('onRemove', { response, uploadFile, uploadFiles })
+  // 上传图片成功给表单 up load 项目赋值
+  let uploadItem = props.options.find(item => item.type === 'upload')!
+  model.value[uploadItem.prop!] = { response, uploadFile, uploadFiles }
+  emits('onSuccess', { response, uploadFile, uploadFiles })
 }
 const onError = (error: Error, uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  emits('onRemove', { error, uploadFile, uploadFiles })
+  emits('onError', { error, uploadFile, uploadFiles })
 
 }
 const onProgress = (evt: UploadProgressEvent, uploadFile: UploadFile, uploadFiles: UploadFiles) => {
-  emits('onRemove', { evt, uploadFile, uploadFiles })
+  emits('onProgress', { evt, uploadFile, uploadFiles })
 
 }
 const onChange: UploadProps['onChange'] = (uploadFile: UploadFile, uploadFiles: UploadFiles) => {
@@ -89,14 +96,14 @@ const onChange: UploadProps['onChange'] = (uploadFile: UploadFile, uploadFiles: 
 
 }
 const onExceed = (files: File[], uploadFiles: UploadUserFile[]) => {
-  emits('onRemove', { files, uploadFiles })
+  emits('onExceed', { files, uploadFiles })
 }
 const beforeUpload: UploadProps['beforeUpload'] = (rawFile: UploadRawFile) => {
-  emits('onRemove', { rawFile })
+  emits('beforeUpload', { rawFile })
 }
 const beforeRemove: UploadProps['beforeRemove'] = (uploadFile: UploadFile, uploadFiles: UploadFiles): Awaitable<boolean> => {
   return new Promise<boolean>((resolve, reject) => {
-    emits('onRemove', { uploadFile, uploadFiles })
+    emits('beforeRemove', { uploadFile, uploadFiles })
   })
 }
 

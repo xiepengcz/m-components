@@ -1,8 +1,8 @@
 <template>
   <div>
     <m-form label-width="100px" size="small" :options="options" @onPreview="handlePreview" @onRemove="handleRemove"
-      @onSuccess="handleSuccess" @onError="handleError" @onProgress="handleProgress" @onChange="handleChange" @onExceed="handleExceed"
-      @beforeUpload="handleBeforeUpload" @beforeRemove="handleBeforeRemove">
+      @onSuccess="handleSuccess" @onError="handleError" @onProgress="handleProgress" @onChange="handleChange"
+      @onExceed="handleExceed" @beforeUpload="handleBeforeUpload" @beforeRemove="handleBeforeRemove">
       <template #uploadArea>
         <el-button type="primary">Click to upload</el-button>
       </template>
@@ -11,6 +11,9 @@
           jpg/png files with a size less than 500KB.
         </div>
       </template>
+      <template #action="scope">
+        <el-button @click="submit(scope)">提交</el-button>
+      </template>
     </m-form>
   </div>
 </template>
@@ -18,7 +21,7 @@
 import { ref } from 'vue';
 import { FormOptions } from '../../components/form/src/types/types';
 import { RuleItem } from '../../components/form/src/types/rule';
-import { UploadFile, UploadFiles, UploadProgressEvent, UploadRawFile, UploadUserFile } from 'element-plus';
+import { ElMessage, FormInstance, UploadFile, UploadFiles, UploadProgressEvent, UploadRawFile, UploadUserFile } from 'element-plus';
 
 let options: FormOptions[] = [
   {
@@ -111,41 +114,62 @@ let options: FormOptions[] = [
     type: 'upload', prop: 'imgUrl',
     value: '',
     label: '上传图片',
-    rules: [{ required: true, message: '性别不能为空', trigger: 'blur' }],
-    attrs: { style: { width: '100%' } },
+    rules: [{ required: true, message: '图片不能为空', trigger: 'blur' }],
+    uploadAttrs: { action:'https://api.thecatapi.com/v1/images/search?limit=1', limit: 2, multiple: true },
   },
 
 ]
 
 const handlePreview = (uploadFile: UploadFile) => {
-console.log('handlePreview');
+  console.log('handlePreview');
 }
-const handleRemove = (val:any) => {
-  
-  console.log('handleRemove');
+const handleRemove = (val: any) => {
+  console.log('handleRemove', val);
 }
-const handleSuccess = (val:any) => {
+const handleSuccess = (val: any) => {
+  console.log('handleSuccess', val);
 
 }
-const handleError = (val:any) => {
+const handleError = (val: any) => {
+  console.log('handleError', val);
 
 }
-const handleProgress =(val:any) => {
+const handleProgress = (val: any) => {
+  console.log('handleProgress', val);
 
 }
-const handleChange = (val:any)=> {
+const handleChange = (val: any) => {
+  console.log('handleChange', val);
 
 }
-const handleExceed = (val:any) => {
+const handleExceed = (val: any) => {
+  console.log('handleExceed', val);
 
 }
-const handleBeforeUpload = (val:any) => {
-console.log('handleBeforeUpload');
+const handleBeforeUpload = (val: any) => {
+  console.log('handleBeforeUpload', val);
 }
-const handleBeforeRemove = (val:any) => {
+const handleBeforeRemove = (val: any) => {
+  console.log('handleBeforeRemove', val);
 
 }
-
+interface Scope {
+  form: FormInstance | undefined;
+  model: any
+}
+const submit = (scope: Scope) => {
+  console.log('formEl',scope.form);
+  if (!scope.form) return
+  scope.form.validate((valid, fields) => {
+    if (valid) {
+      
+    } else {
+      console.log('fields', fields);
+      ElMessage.error('请检查参数填写！')
+      return false
+    }
+  })
+}
 
 </script>
 <style lang="scss"></style>
