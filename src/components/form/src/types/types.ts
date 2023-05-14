@@ -27,7 +27,8 @@ export interface FormOptions {
     | "time-picker"
     | "time-select"
     | "transfer"
-    | "upload";
+    | "upload"
+    | "editor";
   value: any; // 表单项的值
   label?: string; // 表单label
   prop?: string; // 表单标识

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <m-form label-width="100px" size="small" :options="options" @onPreview="handlePreview" @onRemove="handleRemove"
+    <m-form label-width="100px" size="small" :options="options" ref="formRef" @onPreview="handlePreview" @onRemove="handleRemove"
       @onSuccess="handleSuccess" @onError="handleError" @onProgress="handleProgress" @onChange="handleChange"
       @onExceed="handleExceed" @beforeUpload="handleBeforeUpload" @beforeRemove="handleBeforeRemove">
       <template #uploadArea>
@@ -13,6 +13,7 @@
       </template>
       <template #action="scope">
         <el-button @click="submit(scope)">提交</el-button>
+        <el-button @click="reset"> 重置</el-button>
       </template>
     </m-form>
   </div>
@@ -64,9 +65,9 @@ let options: FormOptions[] = [
   },
   {
     type: 'checkbox-group', prop: 'eat',
-    value: [],
+    value: [], 
     label: '美食',
-    rules: [{ required: true, message: '爱好不能为空', trigger: 'blur' }],
+    rules: [{ required: true, message: '爱好不能为空', trigger: 'change' }], // 单选和多选应该用 change 而不是 blur，因为没有失去焦点这一说 
     attrs: { style: { width: '100%' } },
     children: [
       {
@@ -90,7 +91,7 @@ let options: FormOptions[] = [
     type: 'radio-group', prop: 'gender',
     value: '',
     label: '性别',
-    rules: [{ required: true, message: '性别不能为空', trigger: 'blur' }],
+    rules: [{ required: true, message: '性别不能为空', trigger: 'change' }],
     attrs: { style: { width: '100%' } },
     children: [
       {
@@ -115,10 +116,18 @@ let options: FormOptions[] = [
     value: '',
     label: '上传图片',
     rules: [{ required: true, message: '图片不能为空', trigger: 'blur' }],
-    uploadAttrs: { action:'https://api.thecatapi.com/v1/images/search?limit=1', limit: 2, multiple: true },
+    uploadAttrs: { action: 'https://api.thecatapi.com/v1/images/search?limit=1', limit: 2, multiple: true },
   },
+  {
+    type: 'editor', prop: 'desc', value: '1231312', label: '描述',
+    rules: [{ required: true, message: '描述不能为空', trigger: 'blur' }]
+  }
 
 ]
+const formRef = ref()
+const reset = () => {
+  formRef.value.resetFields()
+}
 
 const handlePreview = (uploadFile: UploadFile) => {
   console.log('handlePreview');
@@ -158,11 +167,12 @@ interface Scope {
   model: any
 }
 const submit = (scope: Scope) => {
-  console.log('formEl',scope.form);
+  console.log('formEl', scope.form);
+  console.log('model', scope.model);
   if (!scope.form) return
   scope.form.validate((valid, fields) => {
     if (valid) {
-      
+
     } else {
       console.log('fields', fields);
       ElMessage.error('请检查参数填写！')
