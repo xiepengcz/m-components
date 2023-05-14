@@ -8,8 +8,20 @@ import menu from "./menu";
 import form from "./form";
 import progress from "./progress";
 import chooseTime from "./chooseTime";
+import table from "./table";
 
-const components = [chooseArea, chooseIcon, trend, notification, list, menu, form, progress,chooseTime];
+const components = [
+  chooseArea,
+  chooseIcon,
+  trend,
+  notification,
+  list,
+  menu,
+  form,
+  progress,
+  chooseTime,
+  table,
+];
 
 // 这里用于全局引用
 export default {
