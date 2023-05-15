@@ -10,6 +10,13 @@
         <el-button>删除</el-button>
       </div>
     </template>
+    <!-- 行编辑 -->
+    <template #editRow="{ scope }">
+      <div>
+        <el-button @click="edit(scope)">确定</el-button>
+        <el-button>取消</el-button>
+      </div>
+    </template>
     <!-- <template #editCell="{ scope }">
       <div>
         <el-button @click="edit(scope.row)">编辑</el-button>
@@ -50,31 +57,31 @@ const tableData = ref<TableData[]>([
 
   },
 ])
-setTimeout(() => {
-  tableData.value = [
-    {
-      date: '2016-05-03',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-02',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-04',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
-    },
-    {
-      date: '2016-05-01',
-      name: 'Tom',
-      address: 'No. 189, Grove St, Los Angeles',
+// setTimeout(() => {
+//   tableData.value = [
+//     {
+//       date: '2016-05-03',
+//       name: 'Tom',
+//       address: 'No. 189, Grove St, Los Angeles',
+//     },
+//     {
+//       date: '2016-05-02',
+//       name: 'Tom',
+//       address: 'No. 189, Grove St, Los Angeles',
+//     },
+//     {
+//       date: '2016-05-04',
+//       name: 'Tom',
+//       address: 'No. 189, Grove St, Los Angeles',
+//     },
+//     {
+//       date: '2016-05-01',
+//       name: 'Tom',
+//       address: 'No. 189, Grove St, Los Angeles',
 
-    },
-  ]
-}, 3000)
+//     },
+//   ]
+// }, 3000)
 // 表格配置
 let options: TableOptions[] = [
   { label: '日期', prop: 'date', align: 'center', editable: true },

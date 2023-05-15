@@ -5,31 +5,37 @@
     <template v-for="(item, i) in tableOptions" :key="i">
       <el-table-column :width="item.width" :label="item.label" :prop="item.prop" :align="item.align">
         <template #default="scope">
-          <template v-if="(scope.$index + scope.column.id) === currentEdit">
-            <div style="display: flex;align-items: center;">
-              <el-input size="small" v-model="scope.row[item.prop!]"></el-input>
-              <div @click="clickEditCell">
-                <slot name="editCell" v-if="$slots.editCell" :scope="scope"></slot>
-                <div v-else>
-                  <el-icon-check class="icon" style="margin-right: 12px; color:green" @click="confirm(scope)">
-                  </el-icon-check>
-                  <el-icon-close class="icon" style="color:red" @click="cancel(scope)"></el-icon-close>
-                </div>
-              </div>
-            </div>
+          <template v-if="scope.row.isEditRow">
+            <el-input size="small" v-model="scope.row[item.prop!]"></el-input>
           </template>
           <template v-else>
-            <slot v-if="item.slot" :name="item.slot" :scope="scope"></slot>
-            <span v-else>{{ scope.row[item.prop!] }}</span>
-            <component @click="clickEdit(scope)" v-if="item.editable" class="icon" :is="`el-icon-${toLine(editIcon)}`">
-            </component>
+            <template v-if="(scope.$index + scope.column.id) === currentEdit">
+              <div style="display: flex;align-items: center;">
+                <el-input size="small" v-model="scope.row[item.prop!]"></el-input>
+                <div @click="clickEditCell">
+                  <slot name="editCell" v-if="$slots.editCell" :scope="scope"></slot>
+                  <div v-else>
+                    <el-icon-check class="icon" style="margin-right: 12px; color:green" @click="confirm(scope)">
+                    </el-icon-check>
+                    <el-icon-close class="icon" style="color:red" @click="cancel(scope)"></el-icon-close>
+                  </div>
+                </div>
+              </div>
+            </template>
+            <template v-else>
+              <slot v-if="item.slot" :name="item.slot" :scope="scope"></slot>
+              <span v-else>{{ scope.row[item.prop!] }}</span>
+              <component @click="clickEdit(scope)" v-if="item.editable" class="icon" :is="`el-icon-${toLine(editIcon)}`">
+              </component>
+            </template>
           </template>
         </template>
       </el-table-column>
     </template>
     <el-table-column :label="actionOptions?.label" :align="actionOptions?.align">
       <template #default="scope">
-        <slot name="action" :scope="scope"></slot>
+        <slot name="editRow" v-if="scope.row.isEditRow"></slot>
+        <slot name="action" v-else :scope="scope"></slot>
       </template>
     </el-table-column>
   </el-table>
@@ -87,8 +93,13 @@ const rowClick = (row: any, column: any) => {
   // 判断当前点击是否是操作项的内容
   if (column.label === actionOptions.value?.label) {
     // 编辑行操作
-    if (props.isEditRow && cloneEditRowIndex.value === props.editRowIndex){
-      
+    if (props.isEditRow && cloneEditRowIndex.value === props.editRowIndex) {
+      //  点击按钮做可编辑操作
+      row.isEditRow = !row.isEditRow
+      // 重置其它行的数据
+      tableData.value.map(item => {
+        if (item !== row) item.isEditRow = false
+      })
     }
   }
 }
