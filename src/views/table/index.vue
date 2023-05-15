@@ -1,6 +1,6 @@
 <template>
   <m-table :data="tableData" :options="options" :elementLoadingText="loadingText" @confirm="tableCheck"
-    @cancel="tableClose" isEditRow :editRowIndex="editRowIndex">
+    @cancel="tableClose" isEditRow v-model:editRowIndex="editRowIndex">
     <template #name="{ scope }">
       <span style="color:red">{{ scope.row.name }}</span>
     </template>

@@ -1,20 +1,21 @@
 <template>
   <el-table :data="tableData" v-loading="isLoading" :element-loading-text="elementLoadingText"
     :element-loading-spinner="elementLoadingSpinner" :element-loading-background="elementLoadingBackground"
+    v-bind="$attrs"
     @row-click="rowClick">
     <template v-for="(item, i) in tableOptions" :key="i">
       <el-table-column :width="item.width" :label="item.label" :prop="item.prop" :align="item.align">
         <template #default="scope">
-          <template v-if="scope.row.isEditRow">
+          <template v-if="scope.row.rowEdit">
             <el-input size="small" v-model="scope.row[item.prop!]"></el-input>
           </template>
           <template v-else>
             <template v-if="(scope.$index + scope.column.id) === currentEdit">
               <div style="display: flex;align-items: center;">
                 <el-input size="small" v-model="scope.row[item.prop!]"></el-input>
-                <div @click="clickEditCell">
+                <div @click.stop="clickEditCell">
                   <slot name="editCell" v-if="$slots.editCell" :scope="scope"></slot>
-                  <div v-else>
+                  <div v-else >
                     <el-icon-check class="icon" style="margin-right: 12px; color:green" @click="confirm(scope)">
                     </el-icon-check>
                     <el-icon-close class="icon" style="color:red" @click="cancel(scope)"></el-icon-close>
@@ -25,7 +26,7 @@
             <template v-else>
               <slot v-if="item.slot" :name="item.slot" :scope="scope"></slot>
               <span v-else>{{ scope.row[item.prop!] }}</span>
-              <component @click="clickEdit(scope)" v-if="item.editable" class="icon" :is="`el-icon-${toLine(editIcon)}`">
+              <component @click.stop="clickEdit(scope)" v-if="item.editable" class="icon" :is="`el-icon-${toLine(editIcon)}`">
               </component>
             </template>
           </template>
@@ -34,7 +35,7 @@
     </template>
     <el-table-column :label="actionOptions?.label" :align="actionOptions?.align">
       <template #default="scope">
-        <slot name="editRow" v-if="scope.row.isEditRow"></slot>
+        <slot name="editRow" v-if="scope.row.rowEdit"></slot>
         <slot name="action" v-else :scope="scope"></slot>
       </template>
     </el-table-column>
@@ -95,11 +96,13 @@ const rowClick = (row: any, column: any) => {
     // 编辑行操作
     if (props.isEditRow && cloneEditRowIndex.value === props.editRowIndex) {
       //  点击按钮做可编辑操作
-      row.isEditRow = !row.isEditRow
+      row.rowEdit = !row.rowEdit
       // 重置其它行的数据
       tableData.value.map(item => {
-        if (item !== row) item.isEditRow = false
+        if (item !== row) item.rowEdit = false
       })
+      // 重置按钮标识
+      if(!row.rowEdit) emits('update:editRowIndex', '')
     }
   }
 }
@@ -135,7 +138,7 @@ onMounted(() => {
     item.rowEdit = false // 代表当前是否是可编辑状态
   })
 })
-const emits = defineEmits(['confirm', 'cancel'])
+const emits = defineEmits(['confirm', 'cancel','update:editRowIndex'])
 </script>
 <style lang="scss" scoped>
 .icon {
