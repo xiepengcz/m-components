@@ -1,14 +1,21 @@
 <template>
-  <m-table :data="tableData" :options="options" :elementLoadingText="loadingText">
+  <m-table :data="tableData" :options="options" :elementLoadingText="loadingText" @confirm="tableCheck"
+    @cancel="tableClose" isEditRow :editRowIndex="editRowIndex">
     <template #name="{ scope }">
       <span style="color:red">{{ scope.row.name }}</span>
     </template>
     <template #action="{ scope }">
       <div>
-        <el-button @click="edit(scope.row)">编辑</el-button>
+        <el-button @click="edit(scope)">编辑</el-button>
         <el-button>删除</el-button>
       </div>
     </template>
+    <!-- <template #editCell="{ scope }">
+      <div>
+        <el-button @click="edit(scope.row)">编辑</el-button>
+        <el-button>删除</el-button>
+      </div>
+    </template> -->
   </m-table>
 </template>
 <script lang="ts" setup>
@@ -77,6 +84,17 @@ let options: TableOptions[] = [
 ]
 let loadingText = "加载中 请稍候"
 
-const edit = (row: any) => { console.log(row); }
+const edit = (scope: any) => {
+  editRowIndex.value = 'edit'
+}
+
+const tableCheck = (scope: any) => {
+  console.log(scope);
+}
+const tableClose = (scope: any) => {
+  console.log(scope);
+}
+
+let editRowIndex = ref<string>('')
 </script>
 <style lang="scss" scoped></style>
