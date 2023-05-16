@@ -1,5 +1,6 @@
 <template>
-  <m-table :data="tableData" :options="options" :elementLoadingText="loadingText" @confirm="tableCheck"
+  <m-table :data="tableData" :options="options" :elementLoadingText="loadingText" @confirm="tableCheck" isSelect
+  @selection-change="handleSelectionChange"
     @cancel="tableClose" isEditRow v-model:editRowIndex="editRowIndex">
     <template #name="{ scope }">
       <span style="color:red">{{ scope.row.name }}</span>
@@ -100,6 +101,10 @@ const tableCheck = (scope: any) => {
 }
 const tableClose = (scope: any) => {
   console.log(scope);
+}
+
+const handleSelectionChange = (rows: []) => {
+  console.log('handleSelectionChange', rows);
 }
 
 let editRowIndex = ref<string>('')
