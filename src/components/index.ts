@@ -9,6 +9,7 @@ import form from "./form";
 import progress from "./progress";
 import chooseTime from "./chooseTime";
 import table from "./table";
+import calendar from "./calendar";
 
 const components = [
   chooseArea,
@@ -21,6 +22,7 @@ const components = [
   progress,
   chooseTime,
   table,
+  calendar
 ];
 
 // 这里用于全局引用
