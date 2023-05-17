@@ -3,6 +3,9 @@ lockfileVersion: 5.4
 specifiers:
   '@element-plus/icons-vue': ^2.0.10
   '@fullcalendar/core': ^6.1.7
+  '@fullcalendar/daygrid': ^6.1.7
+  '@fullcalendar/interaction': ^6.1.7
+  '@fullcalendar/timegrid': ^6.1.7
   '@fullcalendar/vue3': ^6.1.7
   '@types/lodash': ^4.14.194
   '@vitejs/plugin-vue': ^3.2.0
@@ -22,6 +25,9 @@ specifiers:
 dependencies:
   '@element-plus/icons-vue': 2.0.10_vue@3.2.45
   '@fullcalendar/core': 6.1.7
+  '@fullcalendar/daygrid': 6.1.7_@fullcalendar+core@6.1.7
+  '@fullcalendar/interaction': 6.1.7_@fullcalendar+core@6.1.7
+  '@fullcalendar/timegrid': 6.1.7_@fullcalendar+core@6.1.7
   '@fullcalendar/vue3': 6.1.7_foae44blntbng5b5sjtf25itty
   '@wangeditor/editor': 5.1.23
   '@wangeditor/editor-for-vue': 5.1.12_3apfu3xbp6awzuex7ed3sbrv6y
@@ -410,6 +416,31 @@ packages:
     resolution: {integrity: sha512-Hc63ARSyABlNo10B3NkA0z8ndaDmq5MKpcBB2iQsGQyn8N8cyn/x6V284Je1EwDoKsBlbrZAj+j+efBO+QQf5g==}
     dependencies:
       preact: 10.12.1
+    dev: false
+
+  /@fullcalendar/daygrid/6.1.7_@fullcalendar+core@6.1.7:
+    resolution: {integrity: sha512-IB+QdRcs+TeTlsK8qJFtYZ/2GugmXEFC0C00/n1aLT7GLgFn3ueV1GN0EKvXv9HJ5ai8My65mYbSyQizY/Ishw==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.7
+    dependencies:
+      '@fullcalendar/core': 6.1.7
+    dev: false
+
+  /@fullcalendar/interaction/6.1.7_@fullcalendar+core@6.1.7:
+    resolution: {integrity: sha512-C2KHSinc9cFUTcGYxRSIj7cBYNSroce+1d2Wa+HKVHguVv4kQuEvm/oPxJpTLXqFjNLfxyxVac7Zd4U0znjFtg==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.7
+    dependencies:
+      '@fullcalendar/core': 6.1.7
+    dev: false
+
+  /@fullcalendar/timegrid/6.1.7_@fullcalendar+core@6.1.7:
+    resolution: {integrity: sha512-kVgJVswu96LrCozr+GyYzF+LUZjURC4HyDg11tCfrj2wMTsrYKqUxilTGXuD3daD4T7qp3CLCg5GdD6lbYHI7A==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.7
+    dependencies:
+      '@fullcalendar/core': 6.1.7
+      '@fullcalendar/daygrid': 6.1.7_@fullcalendar+core@6.1.7
     dev: false
 
   /@fullcalendar/vue3/6.1.7_foae44blntbng5b5sjtf25itty:
