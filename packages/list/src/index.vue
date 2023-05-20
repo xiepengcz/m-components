@@ -50,7 +50,7 @@
 <script lang="ts" setup>
 import { PropType } from "vue";
 import { ActionOptions, ListOptions, ListItem } from "./types";
-import { toLine } from "../../../utils";
+import { toLine } from "../../utils";
 const props = defineProps({
   // 列表内容
   list: {

@@ -19,4 +19,3 @@ let events = ref<EventItem[]>([
   }
 ])
 </script>
-<style lang="scss" scoped></style>

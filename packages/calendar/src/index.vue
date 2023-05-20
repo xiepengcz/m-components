@@ -139,3 +139,9 @@ const currentEvents = ref([] as EventApi[])
 
 const emits = defineEmits(['date-click', 'event-click'])
 </script>
+<style lang='scss' scoped>
+svg {
+  width: 1em;
+  height: 1em;
+}
+</style>

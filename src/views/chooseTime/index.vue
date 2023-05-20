@@ -19,6 +19,3 @@ const startOptions = {
   size: 'small'
 }
 </script>
-<style lang="scss" scoped>
-  
-</style>

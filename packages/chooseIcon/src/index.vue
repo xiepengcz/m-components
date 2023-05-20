@@ -17,8 +17,8 @@
 </template>
 <script setup lang="ts">
 import * as ElIcons from '@element-plus/icons-vue'
-import { toLine } from '../../../utils';
-import { useCopy } from '../../../hooks/useCopy/index'
+import { toLine } from '../../utils';
+import { useCopy } from '../../hooks/useCopy/index'
 const props = defineProps<{
   title: string,
   visible: boolean

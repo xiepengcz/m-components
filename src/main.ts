@@ -10,7 +10,9 @@ import router from "./router";
 import { toLine } from "./utils";
 
 // import chooseArea from "./components/chooseArea";
-import mUI from "./components";
+import mUI from "../lib/mc-element-components"
+import '../lib/style.css'
+// import mUI from "./components/index"
 
 const app = createApp(App);
 // 全局注册Icon 牺牲一点性能

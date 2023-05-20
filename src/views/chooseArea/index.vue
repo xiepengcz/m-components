@@ -11,6 +11,3 @@ const changeArea = (i: any) => {
   console.log(i);
 }
 </script>
-<style lang="scss">
-
-</style>
