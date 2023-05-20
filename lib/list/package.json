@@ -1,0 +1,8 @@
+
+  {
+    "name": "list",
+    "main" : "index.umd.js", 
+    "module" : "index.js",
+    "style": "style.css"
+  }
+  
